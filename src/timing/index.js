@@ -1,21 +1,25 @@
 export const MERGE_BUILDS = 'timing/MERGE_BUILDS';
+export const FOCUS_BUILD = 'timing/FOCUS_BUILD';
 
 const initialState = {
-  selectedUsername: 'mozilla',
-  selectedProject: 'normandy',
   projects: {},
+  currentProject: 'mozilla/normandy',
+  focusedBuild: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case MERGE_BUILDS: {
-      const key = `${action.username}/${action.project}`;
       // shallow clone or new object
-      const newBuilds = (key in state.projects) ? { ...state.projects[key] } : {};
+      const newBuilds = { ...state.projects[action.project] };
       for (const build of action.builds) {
         newBuilds[build.build_num] = build;
       }
-      return { ...state, projects: { ...state.projects, [key]: newBuilds } };
+      return { ...state, projects: { ...state.projects, [action.project]: newBuilds } };
+    }
+
+    case FOCUS_BUILD: {
+      return { ...state, focusedBuild: action.buildNum };
     }
 
     default: {
@@ -24,25 +28,22 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function mergeBuilds(username, project, builds) {
+export function mergeBuilds(project, builds) {
   return {
     type: MERGE_BUILDS,
-    username,
     project,
     builds,
   };
 }
 
-export function loadProject(username, project) {
+export function loadProject(project) {
   return (dispatch, getState) => {
-    const key = `${username}/${project}`;
-
     // load a page at a time until we get no builds we haven't seen already, or we hit the end.
     function loadPage(page, pageSize = 30) {
-      fetch(`https://circleci.com/api/v1/project/${key}?limit=${pageSize}&offset=${pageSize * page}`)
+      fetch(`https://circleci.com/api/v1/project/${project}?limit=${pageSize}&offset=${pageSize * page}`)
       .then(res => res.json())
       .then(builds => {
-        const oldBuilds = getState().timing.projects[key] || {};
+        const oldBuilds = getState().timing.projects[project] || {};
         let anyNew = false;
         for (const build of builds) {
           if (!(build.build_num in oldBuilds)) {
@@ -51,7 +52,7 @@ export function loadProject(username, project) {
           }
         }
 
-        dispatch(mergeBuilds(username, project, builds));
+        dispatch(mergeBuilds(project, builds));
 
         if (anyNew && builds.length >= pageSize) {
           // next page
@@ -63,5 +64,12 @@ export function loadProject(username, project) {
     }
 
     return loadPage(0);
+  };
+}
+
+export function focusBuild(buildNum) {
+  return {
+    type: FOCUS_BUILD,
+    buildNum,
   };
 }

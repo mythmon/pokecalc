@@ -23,15 +23,14 @@
     "eslint-plugin-import": "^1.11.0",
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
-    "material-ui": "^0.15.2",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
     "redux-persist": "^3.2.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "d3-scale": "^1.0.1",
     "object.values": "^1.0.3",
+    "material-ui": "^0.15.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
