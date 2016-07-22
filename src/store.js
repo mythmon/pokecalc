@@ -1,5 +1,6 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import { persistStore, autoRehydrate } from 'redux-persist';
 
 import timing from './timing/';
 
@@ -10,7 +11,12 @@ export function makeStore() {
 
   const store = createStore(
     rootReducer,
-    applyMiddleware(thunk)
+    {},
+    compose(
+      autoRehydrate(),
+      applyMiddleware(thunk),
+    ),
   );
+  persistStore(store);
   return store;
 }

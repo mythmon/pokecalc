@@ -4,3 +4,4 @@ plugins:
   - babel
 rules:
   react/prefer-stateless-function: [off]
+  no-else-return: [off]
