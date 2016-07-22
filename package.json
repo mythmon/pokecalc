@@ -1,14 +1,14 @@
 {
-  "name": "pokecalc",
-  "description": "For figuring stuff out",
+  "name": "circleci-graphs",
+  "description": "Graphs for Circle CI",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --content-base ./static/"
   },
   "author": "",
-  "license": "ISC",
-  "repository": "https://github.com/mythmon/pokecalc.git",
+  "license": "MPLv2",
+  "repository": "https://github.com/mythmon/circleci-graphs.git",
   "devDependencies": {
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.2",
@@ -23,8 +23,10 @@
     "eslint-plugin-import": "^1.11.0",
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
+    "material-ui": "^0.15.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "redux-persist": "^3.2.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
@@ -32,6 +34,8 @@
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   }
 }

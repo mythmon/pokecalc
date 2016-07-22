@@ -4,7 +4,7 @@ with pkgs;
 
 rec {
   normandy = stdenv.mkDerivation {
-    name = "pokecalc";
+    name = "circleci-graphs";
 
     src = ./.;
 
