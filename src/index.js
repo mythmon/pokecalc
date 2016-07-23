@@ -8,7 +8,12 @@ import './polyfills.js';
 
 const store = makeStore();
 
-const target = document.querySelector('#main');
+let target = document.querySelector('#main');
+if (!target) {
+  target = document.createElement('div');
+  target.id = 'main';
+  document.body.appendChild(target);
+}
 ReactDOM.render(
   <Provider store={store}>
     <Main />

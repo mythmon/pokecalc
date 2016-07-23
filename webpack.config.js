@@ -1,6 +1,7 @@
 /* eslint-disable object-shorthand */
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -14,6 +15,9 @@ let plugins = [
         NODE_ENV: production ? '"production"' : '"development"',
       },
     },
+  }),
+  new HtmlWebpackPlugin({
+    title: 'CircleCI Graphs',
   }),
 ];
 
@@ -36,9 +40,8 @@ module.exports = {
   },
   plugins: plugins,
   output: {
-    path: path.join(__dirname, 'static'),
+    path: 'build',
     filename: '[name].js',
-    publicPath: '/static/',
   },
   module: {
     noParse: /node_modules\/localforage/,
