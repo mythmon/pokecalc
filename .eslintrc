@@ -5,3 +5,6 @@ plugins:
 rules:
   react/prefer-stateless-function: [off]
   no-else-return: [off]
+globals:
+  DEVELOPMENT: false
+  PRODUCTION: false

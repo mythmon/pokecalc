@@ -11,6 +11,19 @@ export default class Build extends Component {
     onMouseEnter: pt.func,
   }
 
+  shouldComponentUpdate(next) {
+    const props = this.props;
+    // onMouseEnter isn't here. If it changed, something else probably did too.
+    const names = ['index', 'build', 'indexScale', 'buildTimeScale'];
+    for (const name of names) {
+      if (props[name] !== next[name]) {
+        return true;
+      }
+    }
+    // nothing changed, don't re-render
+    return false;
+  }
+
   render() {
     const {
       index,

@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base ./static/"
+    "dev": "webpack-dev-server --content-base ./static/",
+    "build": "NODE_ENV=production webpack",
+    "lint": "eslint src webpack.config.js"
   },
   "author": "",
   "license": "MPLv2",
@@ -29,8 +31,9 @@
   },
   "dependencies": {
     "d3-scale": "^1.0.1",
-    "object.values": "^1.0.3",
+    "localforage": "^1.4.2",
     "material-ui": "^0.15.2",
+    "object.values": "^1.0.3",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",

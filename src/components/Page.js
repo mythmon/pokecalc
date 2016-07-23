@@ -12,5 +12,5 @@ export default function Page({ children }) {
 }
 
 Page.propTypes = {
-  children: pt.element.isRequired,
+  children: pt.oneOfType([pt.element, pt.arrayOf(pt.element)]).isRequired,
 };

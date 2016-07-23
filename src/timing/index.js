@@ -1,10 +1,15 @@
 export const MERGE_BUILDS = 'timing/MERGE_BUILDS';
 export const FOCUS_BUILD = 'timing/FOCUS_BUILD';
+export const SET_PENDING_INPUT = 'timing/SET_PENDING_INPUT';
 
 const initialState = {
   projects: {},
   currentProject: 'mozilla/normandy',
   focusedBuild: null,
+  pendingInput: {
+    user: '',
+    repo: '',
+  },
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -20,6 +25,14 @@ export default function reducer(state = initialState, action = {}) {
 
     case FOCUS_BUILD: {
       return { ...state, focusedBuild: action.buildNum };
+    }
+
+    case SET_PENDING_INPUT: {
+      const next = {
+        ...state,
+        pendingInput: { ...state.pendingInput, [action.name]: action.value },
+      };
+      return next;
     }
 
     default: {
@@ -71,5 +84,13 @@ export function focusBuild(buildNum) {
   return {
     type: FOCUS_BUILD,
     buildNum,
+  };
+}
+
+export function setPendingInput(name, value) {
+  return {
+    type: SET_PENDING_INPUT,
+    name,
+    value,
   };
 }
