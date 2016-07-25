@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const production = process.env.NODE_ENV === 'production';
 
 let plugins = [
-  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     PRODUCTION: production,
     DEVELOPMENT: !production,
@@ -26,10 +25,18 @@ if (production) {
     new webpack.optimize.UglifyJsPlugin({
       compressor: { warnings: false },
     }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
   ]);
 } else {
   plugins = plugins.concat([
     new webpack.NoErrorsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      minimize: false,
+      debug: true,
+    }),
   ]);
 }
 

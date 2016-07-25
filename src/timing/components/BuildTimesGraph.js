@@ -5,6 +5,7 @@ import Build from './Build.js';
 
 export default class BuildTimesGraph extends Component {
   static propTypes = {
+    label: pt.string.isRequired,
     builds: pt.array.isRequired,
     toFocusBuild: pt.func,
   }
@@ -16,7 +17,7 @@ export default class BuildTimesGraph extends Component {
   }
 
   render() {
-    const { builds, toFocusBuild = () => {} } = this.props;
+    const { builds, label, toFocusBuild = () => {} } = this.props;
 
     if (!builds || builds.length === 0) {
       return <span>No builds found</span>;
@@ -33,18 +34,21 @@ export default class BuildTimesGraph extends Component {
       .range([0, graphWidth]);
 
     return (
-      <svg width={graphWidth} height={graphHeight}>
-        {builds.map((build, index) => (
-          <Build
-            key={index}
-            index={index}
-            build={build}
-            indexScale={this.indexScale}
-            buildTimeScale={this.buildTimeScale}
-            onMouseEnter={() => toFocusBuild(build.build_num)}
-          />
-        ))}
-      </svg>
+      <div>
+        <h2>{label}</h2>
+        <svg width={graphWidth} height={graphHeight}>
+          {builds.map((build, index) => (
+            <Build
+              key={index}
+              index={index}
+              build={build}
+              indexScale={this.indexScale}
+              buildTimeScale={this.buildTimeScale}
+              onMouseEnter={() => toFocusBuild(build.build_num)}
+            />
+          ))}
+        </svg>
+      </div>
     );
   }
 }

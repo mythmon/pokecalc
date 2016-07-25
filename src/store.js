@@ -18,6 +18,6 @@ export function makeStore() {
       applyMiddleware(thunk),
     ),
   );
-  persistStore(store, { storage: localforage });
+  persistStore(store);
   return store;
 }

@@ -31,12 +31,13 @@ export default class BuildTimesContainer extends Component {
   }
 
   render() {
-    const { dispatch, builds, focusedBuild } = this.props;
+    const { currentProject, dispatch, builds, focusedBuild } = this.props;
 
     return (
       <div>
         <BuildTimesGraph
           builds={builds}
+          label={currentProject}
           toFocusBuild={buildNum => dispatch(focusBuild(buildNum))}
         />
         {focusedBuild && <BuildDetail build={focusedBuild} />}

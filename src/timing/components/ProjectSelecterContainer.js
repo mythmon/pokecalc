@@ -1,44 +1,38 @@
 import React, { Component, PropTypes as pt } from 'react';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
+import { TextField } from 'material-ui';
 
 import { setPendingInput } from '../';
 
 @connect(state => {
-  const { currentProject, pendingInput: { user, repo } } = state.timing;
-
-  const [currentUser, currentRepo] = currentProject.split('/');
+  const { pendingInput: { user, repo } } = state.timing;
 
   return {
-    pendingUser: user,
-    pendingRepo: repo,
-    currentUser,
-    currentRepo,
+    user,
+    repo,
   };
 })
 export default class BuildTimesContainer extends Component {
   static propTypes = {
     dispatch: pt.func.isRequired,
-    currentUser: pt.string.isRequired,
-    currentRepo: pt.string.isRequired,
-    pendingUser: pt.string.isRequired,
-    pendingRepo: pt.string.isRequired,
+    user: pt.string.isRequired,
+    repo: pt.string.isRequired,
   };
 
   render() {
-    const { dispatch, currentUser, currentRepo, pendingUser, pendingRepo } = this.props;
+    const { dispatch, user, repo } = this.props;
 
     return (
       <div>
         <TextField
-          hintText={currentUser}
-          value={pendingUser}
+          hintText="Username"
+          value={user}
           onChange={ev => dispatch(setPendingInput('user', ev.target.value))}
         />
         <big>{' / '}</big>
         <TextField
-          hintText={currentRepo}
-          value={pendingRepo}
+          hintText="Repository"
+          value={repo}
           onChange={ev => dispatch(setPendingInput('repo', ev.target.value))}
         />
       </div>
