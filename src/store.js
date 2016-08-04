@@ -1,13 +1,12 @@
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, autoRehydrate } from 'redux-persist';
-import localforage from 'localforage';
 
-import timing from './timing/';
+import ivcalc from './ivcalc/';
 
 export function makeStore() {
   const rootReducer = combineReducers({
-    timing,
+    ivcalc,
   });
 
   const store = createStore(

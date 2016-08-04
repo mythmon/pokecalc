@@ -16,15 +16,13 @@ let plugins = [
     },
   }),
   new HtmlWebpackPlugin({
-    title: 'CircleCI Graphs',
+    title: 'PokeCalc',
   }),
 ];
 
 if (production) {
   plugins = plugins.concat([
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-    }),
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
@@ -54,10 +52,24 @@ module.exports = {
     noParse: /node_modules\/localforage/,
     loaders: [
       {
-        test: /.*\.js$/,
+        test: /\.js$/,
         loader: 'babel',
-        include: path.join(__dirname, 'src'),
-        exclude: /node_modules/,
+        include: [
+          path.join(__dirname, 'src'),
+          path.join(__dirname, 'node_modules', 'pokemon-go-iv-calculator'),
+        ],
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+      },
+      {
+        test: /\.json$/,
+        loader: 'json',
+      },
+      {
+        test: /\.(ttf|eot|svg|woff2?)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
       },
     ],
   },
